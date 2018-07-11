@@ -28,7 +28,7 @@ with np.load('/Users/qimindeng/research/Germany/GermanyT.npz') as data:#open the
     lat=data['lat']
     lon=data['lon']
     
-data=np.transpose(gl-4)
+data=np.transpose(rmse)
 lon_0 = (lon[0]+lon[-1])/2
 lat_0 = (lat[0]+lat[-1])/2
 
@@ -54,16 +54,16 @@ ny = data.shape[0]; nx = data.shape[1]
 lons, lats = m.makegrid(nx, ny) # get lat/lons of ny by nx evenly space grid.
 x, y = m(lons, lats) # compute map proj coordinates.
 # draw filled contours.
-clevs=np.linspace(190,280,91)
-#clevs=np.linspace(np.nanmin(data),np.nanmax(data),20)
+#clevs=np.linspace(290,330,41)
+clevs=np.linspace(np.nanmin(data),np.nanmax(data),20)
 #clevs = [6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12]
 cs = m.contourf(x,y,data,clevs,cmap=cm.s3pcpn_l)
 # add colorbar.
 cbar = m.colorbar(cs,location='bottom',pad="5%")
-cbar.set_label('{^o}C')
+#cbar.set_label('days')
 # add title
-plt.title('growing season length(real)')
-filename = "gl.png"
+plt.title('root mean square error')
+filename = "rmse.png"
 plt.savefig(filename)
 plt.show()
  
